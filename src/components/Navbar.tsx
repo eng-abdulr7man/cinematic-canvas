@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navItems = ["Work", "Skills", "Process", "Contact"];
+const navItems = ["About", "Work", "Skills", "Process", "Contact"];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
