@@ -98,7 +98,7 @@ const StatsAndClients = () => {
             {[...brands, ...brands].map((brand, i) => (
               <span
                 key={`${brand}-${i}`}
-                className="font-display text-2xl md:text-3xl font-bold text-muted-foreground/20 hover:text-primary/40 transition-colors duration-300 cursor-none select-none"
+                className="font-display text-2xl md:text-3xl font-bold text-muted-foreground/20 hover:text-primary/40 transition-colors duration-300  select-none"
               >
                 {brand}
               </span>

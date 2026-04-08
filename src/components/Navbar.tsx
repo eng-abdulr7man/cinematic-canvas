@@ -19,7 +19,7 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 surface-glass"
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-mono text-sm tracking-widest text-primary cursor-none">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-mono text-sm tracking-widest text-primary ">
           CUT<span className="text-foreground">.STUDIO</span>
         </button>
 
@@ -29,7 +29,7 @@ const Navbar = () => {
             <button
               key={item}
               onClick={() => scrollTo(item)}
-              className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider cursor-none"
+              className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider "
             >
               {item}
             </button>
@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-foreground cursor-none">
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-foreground ">
           <div className="w-6 flex flex-col gap-1.5">
             <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} className="block h-px bg-foreground" />
             <motion.span animate={{ opacity: isOpen ? 0 : 1 }} className="block h-px bg-foreground" />
@@ -59,7 +59,7 @@ const Navbar = () => {
                 <button
                   key={item}
                   onClick={() => scrollTo(item)}
-                  className="text-left text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider cursor-none"
+                  className="text-left text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider "
                 >
                   {item}
                 </button>

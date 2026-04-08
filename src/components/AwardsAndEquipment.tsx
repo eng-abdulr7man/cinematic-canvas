@@ -40,7 +40,7 @@ const AwardsAndEquipment = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="group flex flex-col md:flex-row md:items-center gap-2 md:gap-8 py-6 border-b border-border hover:border-primary/30 transition-colors cursor-none"
+                className="group flex flex-col md:flex-row md:items-center gap-2 md:gap-8 py-6 border-b border-border hover:border-primary/30 transition-colors "
               >
                 <span className="font-mono text-sm text-primary w-16 shrink-0">{award.year}</span>
                 <h3 className="font-display text-lg md:text-xl font-semibold text-foreground group-hover:text-gradient-neon transition-colors flex-1">

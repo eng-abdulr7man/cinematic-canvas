@@ -34,7 +34,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative cursor-none"
+          className="relative "
           onMouseEnter={() => setIsGlitching(true)}
           onMouseLeave={() => setIsGlitching(false)}
         >
@@ -67,13 +67,13 @@ const Hero = () => {
         >
           <button
             onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-3 border border-primary/30 text-primary font-mono text-sm tracking-wider hover:bg-primary/10 transition-all glow-neon cursor-none"
+            className="px-8 py-3 border border-primary/30 text-primary font-mono text-sm tracking-wider hover:bg-primary/10 transition-all glow-neon "
           >
             VIEW SHOWREEL
           </button>
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-3 bg-primary text-primary-foreground font-mono text-sm tracking-wider hover:bg-primary/90 transition-all cursor-none"
+            className="px-8 py-3 bg-primary text-primary-foreground font-mono text-sm tracking-wider hover:bg-primary/90 transition-all "
           >
             GET IN TOUCH
           </button>

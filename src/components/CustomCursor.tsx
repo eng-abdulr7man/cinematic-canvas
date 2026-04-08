@@ -1,36 +1,27 @@
 import { useEffect, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 
 const CustomCursor = () => {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [isHoveringVideo, setIsHoveringVideo] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
-  const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
-  const dotX = useSpring(0, { stiffness: 800, damping: 35 });
-  const dotY = useSpring(0, { stiffness: 800, damping: 35 });
-
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
     const move = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 20);
-      cursorY.set(e.clientY - 20);
-      dotX.set(e.clientX - 4);
-      dotY.set(e.clientY - 4);
-      setIsVisible(true);
+      setPos({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
     };
 
     const handleOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("[data-cursor-video]")) setIsHoveringVideo(true);
+      if ((e.target as HTMLElement).closest("[data-cursor-video]")) setIsHoveringVideo(true);
     };
     const handleOut = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("[data-cursor-video]")) setIsHoveringVideo(false);
+      if ((e.target as HTMLElement).closest("[data-cursor-video]")) setIsHoveringVideo(false);
     };
 
     window.addEventListener("mousemove", move);
@@ -44,38 +35,33 @@ const CustomCursor = () => {
       window.removeEventListener("mouseout", handleOut);
       window.removeEventListener("resize", checkMobile);
     };
-  }, [cursorX, cursorY, dotX, dotY]);
+  }, [isVisible]);
 
   if (isMobile) return null;
 
+  const size = isHoveringVideo ? 64 : 8;
+
   return (
-    <>
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border border-primary/50 mix-blend-difference"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          width: isHoveringVideo ? 80 : 40,
-          height: isHoveringVideo ? 80 : 40,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ width: { duration: 0.2 }, height: { duration: 0.2 } }}
-      >
-        {isHoveringVideo && (
-          <span className="absolute inset-0 flex items-center justify-center text-xs font-mono text-primary">
-            PLAY
-          </span>
-        )}
-      </motion.div>
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 pointer-events-none z-[9999] rounded-full bg-primary"
-        style={{
-          x: dotX,
-          y: dotY,
-          opacity: isVisible ? 1 : 0,
-        }}
-      />
-    </>
+    <div
+      className="fixed top-0 left-0 pointer-events-none z-[9999]"
+      style={{
+        transform: `translate(${pos.x - size / 2}px, ${pos.y - size / 2}px)`,
+        width: size,
+        height: size,
+        opacity: isVisible ? 1 : 0,
+        transition: "width 0.2s, height 0.2s, opacity 0.15s",
+        borderRadius: "50%",
+        backgroundColor: isHoveringVideo ? "transparent" : "hsl(199 100% 50%)",
+        border: isHoveringVideo ? "1px solid hsl(199 100% 50% / 0.5)" : "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {isHoveringVideo && (
+        <span className="text-[10px] font-mono text-primary">PLAY</span>
+      )}
+    </div>
   );
 };
 
