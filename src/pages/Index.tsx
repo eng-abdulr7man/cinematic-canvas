@@ -3,9 +3,13 @@ import Lenis from "lenis";
 import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import AboutSection from "@/components/AboutSection";
+import StatsAndClients from "@/components/StatsAndClients";
 import ShowreelGallery from "@/components/ShowreelGallery";
 import SkillsTimeline from "@/components/SkillsTimeline";
 import WorkProcess from "@/components/WorkProcess";
+import Testimonials from "@/components/Testimonials";
+import AwardsAndEquipment from "@/components/AwardsAndEquipment";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -29,9 +33,13 @@ const Index = () => {
       <CustomCursor />
       <Navbar />
       <Hero />
+      <AboutSection />
+      <StatsAndClients />
       <ShowreelGallery />
       <SkillsTimeline />
       <WorkProcess />
+      <Testimonials />
+      <AwardsAndEquipment />
       <Footer />
     </div>
   );
