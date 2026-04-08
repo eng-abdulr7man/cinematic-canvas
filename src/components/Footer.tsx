@@ -17,7 +17,7 @@ const Footer = () => {
           </h2>
           <a
             href="mailto:hello@cutstudio.com"
-            className="inline-block px-10 py-4 border border-primary/30 text-primary font-mono text-sm tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-300 glow-neon cursor-none"
+            className="inline-block px-10 py-4 border border-primary/30 text-primary font-mono text-sm tracking-wider hover:bg-primary hover:text-primary-foreground transition-all duration-300 glow-neon "
           >
             START A PROJECT
           </a>
@@ -32,7 +32,7 @@ const Footer = () => {
               <a
                 key={social}
                 href="#"
-                className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors tracking-wider cursor-none"
+                className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors tracking-wider "
               >
                 {social}
               </a>

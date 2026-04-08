@@ -88,7 +88,7 @@ const Testimonials = () => {
         <div className="flex items-center justify-center gap-6 mt-12">
           <button
             onClick={prev}
-            className="w-12 h-12 border border-border hover:border-primary/40 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors cursor-none"
+            className="w-12 h-12 border border-border hover:border-primary/40 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors "
           >
             ←
           </button>
@@ -99,7 +99,7 @@ const Testimonials = () => {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`h-1 transition-all duration-300 cursor-none ${
+                className={`h-1 transition-all duration-300  ${
                   i === current ? "w-8 bg-primary" : "w-4 bg-border hover:bg-muted-foreground"
                 }`}
               />
@@ -108,7 +108,7 @@ const Testimonials = () => {
 
           <button
             onClick={next}
-            className="w-12 h-12 border border-border hover:border-primary/40 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors cursor-none"
+            className="w-12 h-12 border border-border hover:border-primary/40 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors "
           >
             →
           </button>

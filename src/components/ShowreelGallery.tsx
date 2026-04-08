@@ -16,7 +16,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="flex-shrink-0 w-[320px] md:w-[450px] group cursor-none"
+      className="flex-shrink-0 w-[320px] md:w-[450px] group "
       data-cursor-video
     >
       <div className="relative aspect-video overflow-hidden bg-secondary border border-border">
