@@ -68,10 +68,10 @@ const AboutSection = () => {
           >
             <p className="font-mono text-xs text-primary tracking-[0.3em] mb-2">ABOUT ME</p>
             <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-2">
-              Ahmed Karim
+             Mohamed Elesawy
             </h2>
             <p className="font-mono text-sm text-primary/80 mb-6 tracking-wider">
-              Senior Video Editor & Colorist
+              Junior Video Editor & Colorist
             </p>
 
             <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-10">
