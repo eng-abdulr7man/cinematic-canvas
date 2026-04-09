@@ -27,7 +27,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-mono text-xs md:text-sm tracking-[0.3em] text-primary mb-6 uppercase"
         >
-          Video Editor & Motion Designer
+          Mohammad Esawy — Video Editor & Motion Designer
         </motion.p>
 
         <motion.h1
