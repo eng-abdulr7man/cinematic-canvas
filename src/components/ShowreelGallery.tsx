@@ -1,79 +1,20 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-
-const projects = [
-  {
-    id: 1,
-    title: "THE LAST FRAME",
-    category: "Short Film",
-    year: "2025",
-    client: "Netflix MENA",
-    color: "#00b4ff",
-    description: "Award-winning short film exploring time through a filmmaker's lens",
-    role: "Lead Editor & Colorist",
-  },
-  {
-    id: 2,
-    title: "PULSE",
-    category: "Music Video",
-    year: "2025",
-    client: "Universal Music",
-    color: "#00d4aa",
-    description: "High-energy visual journey for top-charting Arabic pop single",
-    role: "Editor & VFX Supervisor",
-  },
-  {
-    id: 3,
-    title: "DESERT MIRAGE",
-    category: "Commercial",
-    year: "2024",
-    client: "Vodafone Egypt",
-    color: "#ff6b35",
-    description: "Cinematic Ramadan campaign reaching 40M+ views across platforms",
-    role: "Senior Editor",
-  },
-  {
-    id: 4,
-    title: "ECHOES OF CAIRO",
-    category: "Documentary",
-    year: "2024",
-    client: "Al Jazeera",
-    color: "#a855f7",
-    description: "Documentary exploring Cairo's hidden artistic underground scene",
-    role: "Editor & Sound Designer",
-  },
-  {
-    id: 5,
-    title: "NEON DYNASTY",
-    category: "Brand Film",
-    year: "2024",
-    client: "Samsung MENA",
-    color: "#eab308",
-    description: "Futuristic brand film for Galaxy S24 Ultra launch event",
-    role: "Lead Editor & Motion Designer",
-  },
-  {
-    id: 6,
-    title: "BETWEEN WORLDS",
-    category: "Short Film",
-    year: "2023",
-    client: "Cairo Film Festival",
-    color: "#ef4444",
-    description: "Experimental narrative blending reality and dreams in modern Egypt",
-    role: "Editor & Colorist",
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { projects } from "@/data/projects";
 
 const ProjectCard = ({
   project,
   index,
   isActive,
   onActivate,
+  onClick,
 }: {
   project: (typeof projects)[0];
   index: number;
   isActive: boolean;
   onActivate: () => void;
+  onClick: () => void;
 }) => {
   return (
     <motion.div
@@ -84,6 +25,7 @@ const ProjectCard = ({
       className="flex-shrink-0 w-[340px] md:w-[520px] lg:w-[600px] group select-none"
       data-cursor-video
       onMouseEnter={onActivate}
+      onClick={onClick}
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-500 group-hover:border-primary/30">
         {/* Animated gradient background */}
@@ -202,6 +144,7 @@ const ProjectCard = ({
 };
 
 const ShowreelGallery = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -287,6 +230,7 @@ const ShowreelGallery = () => {
               index={i}
               isActive={activeIndex === i}
               onActivate={() => setActiveIndex(i)}
+              onClick={() => { if (!isDragging) navigate(`/project/${project.slug}`); }}
             />
           ))}
         </motion.div>
