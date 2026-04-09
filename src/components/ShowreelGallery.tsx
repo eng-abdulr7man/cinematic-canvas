@@ -25,6 +25,7 @@ const ProjectCard = ({
       className="flex-shrink-0 w-[340px] md:w-[520px] lg:w-[600px] group select-none"
       data-cursor-video
       onMouseEnter={onActivate}
+      onClick={onClick}
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-500 group-hover:border-primary/30">
         {/* Animated gradient background */}
@@ -143,6 +144,7 @@ const ProjectCard = ({
 };
 
 const ShowreelGallery = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -228,6 +230,7 @@ const ShowreelGallery = () => {
               index={i}
               isActive={activeIndex === i}
               onActivate={() => setActiveIndex(i)}
+              onClick={() => { if (!isDragging) navigate(`/project/${project.slug}`); }}
             />
           ))}
         </motion.div>
