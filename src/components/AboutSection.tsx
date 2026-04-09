@@ -3,8 +3,8 @@ import { useRef } from "react";
 import editorPortrait from "@/assets/editor-portrait.jpg";
 
 const details = [
-  { label: "LOCATION", value: "Cairo, Egypt" },
-  { label: "EXPERIENCE", value: "8+ Years" },
+  { label: "LOCATION", value: "Mansoura, Egypt" },
+  { label: "EXPERIENCE", value: "1+ Years" },
   { label: "SPECIALTY", value: "Cinematic Editing" },
   { label: "AVAILABLE", value: "Freelance & Remote" },
 ];
@@ -75,20 +75,22 @@ const AboutSection = () => {
             </p>
 
             <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-10">
-              <p>
-                I'm a passionate storyteller who speaks through cuts, transitions, and color. With over
-                8 years of experience in the film and advertising industry, I've crafted visual narratives
-                for brands, filmmakers, and content creators across the Middle East and beyond.
-              </p>
-              <p>
-                My approach combines technical precision with artistic intuition — every frame is an
-                opportunity to evoke emotion. From commercial spots to documentary features, I bring
-                a cinematic eye to every project.
-              </p>
-              <p>
-                I believe great editing is invisible. The audience should feel the story, not see the cuts.
-                That's the standard I hold myself to on every timeline.
-              </p>
+             <p>
+  I'm a passionate storyteller who speaks through cuts, transitions, and color. With 
+  one year of professional experience in the film and advertising industry, I've already 
+  started crafting compelling visual narratives for brands and content creators across 
+  the Middle East.
+</p>
+<p>
+  My approach combines technical precision with artistic intuition — every frame is an
+  opportunity to evoke emotion. I bring a fresh, cinematic eye to every project, 
+  focusing on delivering high-quality commercial spots and creative content.
+</p>
+<p>
+  I believe great editing is invisible. The audience should feel the story, not see the cuts.
+  That's the standard I hold myself to on every timeline as I continue to push the 
+  boundaries of visual storytelling.
+</p>
             </div>
 
             {/* Details grid */}
