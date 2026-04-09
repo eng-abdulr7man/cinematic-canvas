@@ -8,11 +8,13 @@ const ProjectCard = ({
   index,
   isActive,
   onActivate,
+  onClick,
 }: {
   project: (typeof projects)[0];
   index: number;
   isActive: boolean;
   onActivate: () => void;
+  onClick: () => void;
 }) => {
   return (
     <motion.div
