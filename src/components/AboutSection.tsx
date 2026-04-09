@@ -54,7 +54,7 @@ const AboutSection = () => {
                 transition={{ delay: 0.4 }}
               >
                 <span className="font-mono text-[10px] text-primary tracking-[0.3em] block">SINCE</span>
-                <span className="font-display text-3xl font-bold text-foreground">2016</span>
+                <span className="font-display text-3xl font-bold text-foreground">2024</span>
               </motion.div>
             </motion.div>
           </motion.div>
