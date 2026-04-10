@@ -47,7 +47,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-12 border-t border-border/50">
           <span className="font-mono text-[11px] text-muted-foreground/40 tracking-wider">
-            © 2026 MOHAMMAD ESAWY — ALL RIGHTS RESERVED
+            © 2026 MOHAMED ELESAWY — ALL RIGHTS RESERVED
           </span>
           <div className="flex gap-8">
             {[
