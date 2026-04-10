@@ -1,17 +1,16 @@
 import { motion } from "framer-motion";
 
 const awards = [
-  { year: "2024", title: "Best Editing — Cairo Film Festival", category: "Short Film" },
-  { year: "2023", title: "Vimeo Staff Pick", category: "Commercial" },
-  { year: "2023", title: "Adobe Creative Residency", category: "Recognition" },
-  { year: "2022", title: "Gold — MENA Advertising Awards", category: "Brand Film" },
-  { year: "2021", title: "Best Music Video Editing", category: "Music Video" },
+  { year: "2024", title: "Best Student Editor — Cairo Media Arts", category: "Short Film" },
+  { year: "2024", title: "Official Selection", category: "Independent Film Festival" },
+  { year: "2023", title: "Adobe Certified Professional", category: "Video Design" },
+  { year: "2023", title: "Top Emerging Creator — Creative Hub", category: "Social Content" },
 ];
 
 const equipment = [
-  { category: "EDITING", items: ["Mac Studio M2 Ultra", "Dual 32\" ProDisplay XDR", "DaVinci Resolve Studio", "Adobe Premiere Pro"] },
-  { category: "COLOR", items: ["DaVinci Resolve Advanced Panel", "Flanders Scientific Monitor", "CalMAN Color Calibration"] },
-  { category: "AUDIO", items: ["Pro Tools", "Beyerdynamic DT 1990 Pro", "Universal Audio Apollo", "Neumann KH 120 Monitors"] },
+  { category: "EDITING", items: ["MacBook Pro M3 Max", "Studio Display 5K", "Adobe Premiere Pro", "After Effects"] },
+  { category: "COLOR", items: ["DaVinci Resolve Studio", "Blackmagic Design Micro Panel", "Asus ProArt Monitor"] },
+  { category: "AUDIO", items: ["Adobe Audition", "Beyerdynamic DT 770 Pro", "Focusrite Scarlett Interface", "Yamaha HS5 Monitors"] },
 ];
 
 const AwardsAndEquipment = () => {
@@ -28,7 +27,7 @@ const AwardsAndEquipment = () => {
           >
             <p className="font-mono text-xs text-primary tracking-[0.3em] mb-2">RECOGNITION</p>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight text-foreground">
-              Awards & Honors
+              Milestones & Certs
             </h2>
           </motion.div>
 
