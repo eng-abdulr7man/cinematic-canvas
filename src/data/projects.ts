@@ -37,7 +37,7 @@ export const projects: Project[] = [
     duration: "2 weeks",
     tools: ["Premiere Pro", "After Effects", "Photoshop"],
     gallery: [
-      "https://images.unsplash.com/photo-1616077168712-fc6c788bc4ee?w=1200&q=80",
+      "https://unsplash.com/photos/a-person-holding-a-credit-card-in-front-of-a-machine-3YSDTzqnVtQ",
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
     ],
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
