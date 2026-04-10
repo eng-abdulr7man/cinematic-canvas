@@ -25,7 +25,7 @@ export const projects: Project[] = [
     category: "Commercial / Social",
     year: "2025",
     client: "Telda Egypt",
-    color: "#000000",
+    color: "#00b4ff", // اللون الأزرق القديم
     description: "Fast-paced social media ads for Egypt's leading digital bank",
     role: "Video Editor & Motion Graphics",
     fullDescription:
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     category: "Event Recap",
     year: "2024",
     client: "El Gouna Film Festival",
-    color: "#d4af37",
+    color: "#00d4aa", // اللون الأخضر المائي القديم
     description: "Daily recap videos and red carpet highlights for GFF's 7th edition",
     role: "Lead Content Editor",
     fullDescription:
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     category: "Corporate Explainer",
     year: "2024",
     client: "Swvl",
-    color: "#ff0000",
+    color: "#ff6b35", // اللون البرتقالي القديم
     description: "B2B explainer video showcasing Swvl's corporate transportation logistics",
     role: "Video Editor",
     fullDescription:
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     category: "Social Media",
     year: "2024",
     client: "Mountain View Egypt",
-    color: "#005596",
+    color: "#a855f7", // اللون البنفسجي القديم
     description: "Heartwarming social media spots for Ramadan and Eid seasons",
     role: "Content Editor",
     fullDescription:
