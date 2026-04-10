@@ -40,18 +40,27 @@ const Testimonials = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.05] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <p className="font-mono text-xs text-primary tracking-[0.3em] mb-2 uppercase italic">آراء العملاء</p>
-          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight text-foreground">
-            كلمات <span className="text-gradient-neon">في حقي</span>
-          </h2>
-        </motion.div>
+         <motion.div
 
+          initial={{ opacity: 0, y: 20 }}
+
+          whileInView={{ opacity: 1, y: 0 }}
+
+          viewport={{ once: true }}
+
+          className="text-center mb-16"
+
+        >
+
+          <p className="font-mono text-xs text-primary tracking-[0.3em] mb-2 uppercase italic">&gt; Feedback</p>
+
+          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight text-foreground">
+
+            Client <span className="text-gradient-neon">Words</span>
+
+          </h2>
+
+        </motion.div>
         <div className="relative min-h-[350px] md:min-h-[300px] flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
