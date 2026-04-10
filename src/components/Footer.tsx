@@ -51,10 +51,10 @@ const Footer = () => {
           {/* Social Icons/Links Row */}
           <div className="flex flex-wrap justify-center md:justify-center gap-6 md:gap-8">
             {[
-              { name: "Instagram", url: "#" },
+              { name: "Instagram", url: "https://www.instagram.com/m0hamed__el3sawy/?utm_source=ig_web_button_share_sheet" },
               { name: "YouTube", url: "#" },
               { name: "Behance", url: "#" },
-              { name: "LinkedIn", url: "#" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/mohamed-elesawy-" },
             ].map((social) => (
               <a
                 key={social.name}
