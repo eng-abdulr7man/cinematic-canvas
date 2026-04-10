@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { projects } from "@/data/projects";
 
@@ -23,121 +23,78 @@ const ProjectCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       className="flex-shrink-0 w-[340px] md:w-[520px] lg:w-[600px] group select-none"
-      data-cursor-video
       onMouseEnter={onActivate}
       onClick={onClick}
     >
-      <div className="relative aspect-[16/9] overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-500 group-hover:border-primary/30">
-        {/* Animated gradient background */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_30px_-10px_rgba(0,0,0,0.3)]">
+        
+        {/* الخلفية الملونة التفاعلية */}
         <motion.div
           className="absolute inset-0"
           style={{
             background: `radial-gradient(ellipse at 30% 50%, ${project.color}15, transparent 70%), linear-gradient(135deg, ${project.color}08, transparent 60%)`,
           }}
-          animate={isActive ? { opacity: 0.8 } : { opacity: 0.3 }}
-          transition={{ duration: 0.5 }}
+          animate={isActive ? { opacity: 1, scale: 1.05 } : { opacity: 0.3, scale: 1 }}
+          transition={{ duration: 0.8 }}
         />
 
-        {/* Cinematic bars */}
-        <div className="absolute top-0 left-0 right-0 h-[8%] bg-background/80 z-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-[8%] bg-background/80 z-10" />
+        {/* Cinematic bars - إضفاء طابع سينمائي */}
+        <div className="absolute top-0 left-0 right-0 h-[8%] bg-background/90 z-10 transition-transform duration-500 group-hover:translate-y-[-2px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[8%] bg-background/90 z-10 transition-transform duration-500 group-hover:translate-y-[2px]" />
 
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-700"
-          style={{
-            backgroundImage: `linear-gradient(${project.color}44 1px, transparent 1px), linear-gradient(90deg, ${project.color}44 1px, transparent 1px)`,
-            backgroundSize: "30px 30px",
-          }}
-        />
-
-        {/* Floating elements */}
-        <motion.div
-          className="absolute top-[15%] left-[10%] w-20 h-20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{ background: `radial-gradient(circle, ${project.color}20, transparent 70%)` }}
-          animate={isActive ? { scale: [1, 1.3, 1], x: [0, 10, 0] } : {}}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-
-        {/* Large project number */}
+        {/* رقم المشروع الكبير في الخلفية */}
         <div className="absolute inset-0 flex items-center justify-center z-[1]">
           <span
-            className="text-[120px] md:text-[180px] font-display font-bold leading-none opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700"
+            className="text-[120px] md:text-[200px] font-display font-bold leading-none opacity-[0.03] group-hover:opacity-[0.07] transition-all duration-700 group-hover:scale-110"
             style={{ color: project.color }}
           >
-            {String(project.id).padStart(2, "0")}
+            {String(index + 1).padStart(2, "0")}
           </span>
         </div>
 
-        {/* Play indicator */}
+        {/* أيقونة التشغيل عند التحويم */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
           <motion.div
-            className="w-20 h-20 rounded-full flex items-center justify-center"
+            className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm"
             style={{
-              background: `radial-gradient(circle, ${project.color}30, transparent 70%)`,
-              border: `1px solid ${project.color}40`,
+              background: `radial-gradient(circle, ${project.color}40, ${project.color}10)`,
+              border: `1px solid ${project.color}50`,
             }}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.15, rotate: 90 }}
           >
             <div
-              className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[16px] border-transparent ml-1"
-              style={{ borderLeftColor: project.color }}
+              className="w-0 h-0 border-t-[8px] border-b-[8px] border-l-[14px] border-transparent ml-1"
+              style={{ borderLeftColor: "#fff" }}
             />
           </motion.div>
         </div>
 
-        {/* Top info bar */}
-        <div className="absolute top-[10%] left-0 right-0 px-5 flex items-center justify-between z-20">
-          <span className="font-mono text-[10px] text-muted-foreground/60 tracking-widest">
-            {project.year}
+        {/* شريط المعلومات العلوي (REC Style) */}
+        <div className="absolute top-[10%] left-0 right-0 px-6 flex items-center justify-between z-20">
+          <span className="font-mono text-[10px] text-white/40 tracking-[0.2em]">
+            {project.year} // 24FPS
           </span>
-          <span className="font-mono text-[10px] tracking-widest" style={{ color: `${project.color}99` }}>
-            {String(project.id).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* Bottom info bar */}
-        <div className="absolute bottom-[10%] left-0 right-0 px-5 flex items-center justify-between z-20">
-          <span className="font-mono text-[10px] text-muted-foreground/40 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            {project.role}
-          </span>
-          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-            <span className="font-mono text-[10px] text-muted-foreground/60">REC</span>
+          <div className="flex items-center gap-2">
+             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+             <span className="font-mono text-[10px] text-white/60 tracking-widest">LIVE</span>
           </div>
         </div>
       </div>
 
-      {/* Card info */}
-      <div className="mt-5 flex items-start justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3 mb-1.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: project.color }} />
-            <span
-              className="font-mono text-[10px] tracking-[0.2em] uppercase"
-              style={{ color: `${project.color}cc` }}
-            >
-              {project.category}
-            </span>
+      {/* تفاصيل المشروع أسفل الكارت */}
+      <div className="mt-6 flex items-start justify-between">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono text-primary tracking-widest uppercase">[{project.category}]</span>
           </div>
-          <h3 className="font-display text-xl md:text-2xl font-bold tracking-wide text-foreground group-hover:text-foreground transition-colors">
+          <h3 className="font-display text-2xl font-bold text-foreground tracking-tight">
             {project.title}
           </h3>
-          <p className="font-mono text-xs text-muted-foreground/60 mt-2 max-w-[300px] leading-relaxed hidden md:block">
-            {project.description}
-          </p>
-          <p className="font-mono text-[11px] text-muted-foreground/40 mt-2">
-            {project.client}
+          <p className="font-mono text-[11px] text-muted-foreground/60">
+            Client: {project.client}
           </p>
         </div>
-        <motion.div
-          className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
-          whileHover={{ x: 5 }}
-        >
-          <span className="font-mono text-xs" style={{ color: project.color }}>
-            →
-          </span>
-        </motion.div>
+        <div className="h-px w-12 bg-border mt-4 group-hover:w-20 group-hover:bg-primary transition-all duration-500" />
       </div>
     </motion.div>
   );
@@ -145,83 +102,65 @@ const ProjectCard = ({
 
 const ShowreelGallery = () => {
   const navigate = useNavigate();
-  const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-
-  // Drag to scroll
-  const dragX = useMotionValue(0);
   const [scrollWidth, setScrollWidth] = useState(0);
 
   useEffect(() => {
     if (scrollRef.current) {
       setScrollWidth(scrollRef.current.scrollWidth - scrollRef.current.offsetWidth);
     }
-  }, []);
+  }, [projects.length]);
 
-  // Parallax for the section header
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const headerY = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const lineWidth = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
+
+  const headerY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const lineWidth = useTransform(scrollYProgress, [0, 0.4], ["0%", "100%"]);
 
   return (
-    <section id="work" ref={containerRef} className="py-24 md:py-40 overflow-hidden relative">
-      {/* Background ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/2 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.02]"
-          style={{
-            background: `radial-gradient(circle, hsl(var(--neon)), transparent 70%)`,
-          }}
-        />
-      </div>
-
-      {/* Section header */}
-      <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-20">
+    <section id="work" ref={containerRef} className="py-24 md:py-40 overflow-hidden bg-background">
+      <div className="max-w-7xl mx-auto px-6 mb-16">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8 }}
         >
-          <div className="flex items-end justify-between mb-6">
+          <div className="flex items-end justify-between mb-8">
             <motion.div style={{ y: headerY }}>
-              <p className="font-mono text-xs text-primary tracking-[0.3em] mb-3">
-                ▶ SELECTED WORK
+              <p className="font-mono text-xs text-primary tracking-[0.4em] mb-4 uppercase">
+                &gt; Recent Productions
               </p>
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter text-foreground">
+              <h2 className="text-6xl md:text-8xl font-display font-bold tracking-tighter">
                 Show<span className="text-gradient-neon">reel</span>
               </h2>
             </motion.div>
-            <div className="hidden md:flex flex-col items-end gap-2">
-              <span className="font-mono text-xs text-muted-foreground/60 tracking-wider">
-                {String(projects.length).padStart(2, "0")} PROJECTS
-              </span>
-              <span className="font-mono text-[10px] text-muted-foreground/30 tracking-wider">
-                DRAG TO EXPLORE →
-              </span>
+            <div className="hidden md:block text-right">
+              <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">SCROLL OR DRAG</p>
+              <div className="flex gap-1 justify-end">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="w-4 h-[1px] bg-primary/30" />
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Animated line separator */}
-          <motion.div className="h-px bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" style={{ width: lineWidth }} />
+          <motion.div className="h-px bg-primary/20" style={{ width: lineWidth }} />
         </motion.div>
       </div>
 
-      {/* Draggable horizontal gallery */}
-      <div ref={scrollRef} className="overflow-hidden">
+      <div ref={scrollRef} className="cursor-grab active:cursor-grabbing">
         <motion.div
           drag="x"
           dragConstraints={{ right: 0, left: -scrollWidth }}
-          dragElastic={0.05}
-          dragTransition={{ bounceStiffness: 300, bounceDamping: 30 }}
+          dragElastic={0.1}
           onDragStart={() => setIsDragging(true)}
           onDragEnd={() => setTimeout(() => setIsDragging(false), 100)}
-          className="flex gap-8 pl-6 md:pl-[calc(50vw-580px)] pr-[20vw] cursor-grab active:cursor-grabbing"
+          className="flex gap-10 pl-6 md:pl-[10vw] pr-[20vw]"
         >
           {projects.map((project, i) => (
             <ProjectCard
@@ -230,31 +169,32 @@ const ShowreelGallery = () => {
               index={i}
               isActive={activeIndex === i}
               onActivate={() => setActiveIndex(i)}
-              onClick={() => { if (!isDragging) navigate(`/project/${project.slug}`); }}
+              onClick={() => {
+                if (!isDragging) navigate(`/project/${project.slug}`);
+              }}
             />
           ))}
         </motion.div>
       </div>
 
-      {/* Progress indicator */}
-      <div className="max-w-7xl mx-auto px-6 mt-12">
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2">
-            {projects.map((p, i) => (
-              <motion.div
-                key={p.id}
-                className="h-1 rounded-full transition-all duration-500"
-                style={{
-                  backgroundColor: activeIndex === i ? p.color : "hsl(var(--muted))",
-                  width: activeIndex === i ? 32 : 8,
-                }}
-              />
-            ))}
-          </div>
-          <span className="font-mono text-[10px] text-muted-foreground/40 ml-auto">
-            {String(activeIndex + 1).padStart(2, "0")} — {projects[activeIndex].title}
-          </span>
+      {/* شريط التقدم السفلي */}
+      <div className="max-w-7xl mx-auto px-6 mt-16 flex items-center justify-between">
+        <div className="flex gap-3">
+          {projects.map((p, i) => (
+            <motion.button
+              key={p.id}
+              onClick={() => setActiveIndex(i)}
+              className="h-1.5 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor: activeIndex === i ? p.color : "hsl(var(--border))",
+                width: activeIndex === i ? 40 : 12,
+              }}
+            />
+          ))}
         </div>
+        <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+          Project {String(activeIndex + 1).padStart(2, '0')} // {projects[activeIndex].title}
+        </span>
       </div>
     </section>
   );
