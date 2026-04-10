@@ -20,7 +20,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-mono text-sm tracking-widest text-primary ">
-          Mohammad<span className="text-foreground">.Esawy</span>
+          Mohamed<span className="text-foreground">.Elesawy</span>
         </button>
 
         {/* Desktop */}
