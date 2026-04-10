@@ -37,10 +37,10 @@ export const projects: Project[] = [
     duration: "2 weeks",
     tools: ["Premiere Pro", "After Effects", "Photoshop"],
     gallery: [
-      "https://unsplash.com/photos/a-person-holding-a-credit-card-in-front-of-a-machine-3YSDTzqnVtQ",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
+      "https://images.pexels.com/photos/8937438/pexels-photo-8937438.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.unsplash.com/photo-1613243555988-441166d4d6fd?w=1200&q=80",
     ],
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://youtu.be/LGj_fL_xnrA?si=X1MwkF_wiEzZtBR1",
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
       "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80",
     ],
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://youtu.be/LGj_fL_xnrA?si=X1MwkF_wiEzZtBR1",
   },
   {
     id: 3,
@@ -88,7 +88,7 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&q=80",
       "https://images.unsplash.com/photo-1570126618953-d437176e8c79?w=1200&q=80",
     ],
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://youtu.be/LGj_fL_xnrA?si=X1MwkF_wiEzZtBR1",
   },
   {
     id: 4,
@@ -112,6 +112,6 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1200&q=80",
       "https://images.unsplash.com/photo-1542401886-65d6c61db217?w=1200&q=80",
     ],
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://youtu.be/LGj_fL_xnrA?si=X1MwkF_wiEzZtBR1",
   },
 ];
