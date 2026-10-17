@@ -1,105 +1,23 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  prefix: "",
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       fontFamily: {
-        display: ['Space Grotesk', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        display: ['"Anton"', '"Cairo"', "Impact", "sans-serif"],
+        sans: ['"Montserrat"', '"Cairo"', "system-ui", "sans-serif"],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        neon: "hsl(var(--neon))",
-        "neon-glow": "hsl(var(--neon-glow))",
-        "surface-elevated": "hsl(var(--surface-elevated))",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "glitch-1": {
-          "0%, 100%": { clipPath: "inset(0 0 90% 0)", transform: "translate(0)" },
-          "20%": { clipPath: "inset(30% 0 40% 0)", transform: "translate(-5px, 2px)" },
-          "40%": { clipPath: "inset(60% 0 10% 0)", transform: "translate(5px, -2px)" },
-          "60%": { clipPath: "inset(10% 0 70% 0)", transform: "translate(-3px, 1px)" },
-          "80%": { clipPath: "inset(50% 0 20% 0)", transform: "translate(3px, -1px)" },
-        },
-        "glitch-2": {
-          "0%, 100%": { clipPath: "inset(90% 0 0 0)", transform: "translate(0)" },
-          "25%": { clipPath: "inset(40% 0 30% 0)", transform: "translate(4px, -2px)" },
-          "50%": { clipPath: "inset(10% 0 60% 0)", transform: "translate(-4px, 2px)" },
-          "75%": { clipPath: "inset(70% 0 5% 0)", transform: "translate(2px, -1px)" },
-        },
-        "float": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "pulse-neon": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "glitch-1": "glitch-1 0.3s ease-in-out",
-        "glitch-2": "glitch-2 0.3s ease-in-out 0.05s",
-        "float": "float 6s ease-in-out infinite",
-        "pulse-neon": "pulse-neon 2s ease-in-out infinite",
+        ink: "hsl(var(--ink) / <alpha-value>)",
+        navy: "hsl(var(--navy) / <alpha-value>)",
+        cyan: "hsl(var(--cyan) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
+        muted: "hsl(var(--muted) / <alpha-value>)",
+        warm: "hsl(var(--warm) / <alpha-value>)",
+        pill: "hsl(var(--pill) / <alpha-value>)",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;

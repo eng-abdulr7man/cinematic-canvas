@@ -1,201 +1,124 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { projects } from "@/data/projects";
+import { useCallback, useState } from "react";
+import { motion } from "framer-motion";
+import { projects, type Project } from "@/data/projects";
+import VideoModal from "@/components/VideoModal";
+import { PlayGlyph } from "@/components/icons";
 
-const ProjectCard = ({
+/**
+ * Asymmetric placement on large screens. Positions repeat every 4 projects.
+ * On smaller screens: verticals sit side by side, landscape tiles span the row.
+ */
+const slots = [
+  "lg:col-span-3 lg:col-start-1",
+  "lg:col-span-6 lg:col-start-4 lg:mt-24",
+  "lg:col-span-3 lg:col-start-10 lg:mt-8",
+  "lg:col-span-7 lg:col-start-3",
+];
+
+const Tile = ({
   project,
   index,
-  isActive,
-  onActivate,
-  onClick,
+  onOpen,
 }: {
-  project: (typeof projects)[0];
+  project: Project;
   index: number;
-  isActive: boolean;
-  onActivate: () => void;
-  onClick: () => void;
+  onOpen: (p: Project) => void;
 }) => {
+  const [failed, setFailed] = useState(false);
+  const src = project.thumbnail ?? project.gallery[0];
+  const vertical = project.orientation === "vertical";
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 60 }}
+    <motion.li
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="flex-shrink-0 w-[340px] md:w-[520px] lg:w-[600px] group select-none"
-      onMouseEnter={onActivate}
-      onClick={onClick}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className={`group relative self-start ${vertical ? "col-span-1" : "col-span-2"} ${slots[index % slots.length]}`}
     >
-      <div className="relative aspect-[16/9] overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_30px_-10px_rgba(0,0,0,0.3)]">
-        
-        {/* الخلفية الملونة التفاعلية */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse at 30% 50%, ${project.color}15, transparent 70%), linear-gradient(135deg, ${project.color}08, transparent 60%)`,
-          }}
-          animate={isActive ? { opacity: 1, scale: 1.05 } : { opacity: 0.3, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        />
-
-        {/* Cinematic bars - إضفاء طابع سينمائي */}
-        <div className="absolute top-0 left-0 right-0 h-[8%] bg-background/90 z-10 transition-transform duration-500 group-hover:translate-y-[-2px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-[8%] bg-background/90 z-10 transition-transform duration-500 group-hover:translate-y-[2px]" />
-
-        {/* رقم المشروع الكبير في الخلفية */}
-        <div className="absolute inset-0 flex items-center justify-center z-[1]">
-          <span
-            className="text-[120px] md:text-[200px] font-display font-bold leading-none opacity-[0.03] group-hover:opacity-[0.07] transition-all duration-700 group-hover:scale-110"
-            style={{ color: project.color }}
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* أيقونة التشغيل عند التحويم */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
-          <motion.div
-            className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm"
-            style={{
-              background: `radial-gradient(circle, ${project.color}40, ${project.color}10)`,
-              border: `1px solid ${project.color}50`,
-            }}
-            whileHover={{ scale: 1.15, rotate: 90 }}
-          >
-            <div
-              className="w-0 h-0 border-t-[8px] border-b-[8px] border-l-[14px] border-transparent ml-1"
-              style={{ borderLeftColor: "#fff" }}
+      <div className={vertical ? "mx-auto w-full max-w-[22rem]" : "w-full"}>
+        <div
+          className={`relative overflow-hidden bg-navy ring-1 ring-white/10 transition-shadow duration-500 group-hover:ring-cyan/60 group-focus-within:ring-cyan/60 ${
+            vertical ? "aspect-[9/16]" : "aspect-video"
+          }`}
+        >
+          {failed || !src ? (
+            <div className="poster-fallback absolute inset-0" aria-hidden="true" />
+          ) : (
+            <img
+              src={src}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              onError={() => setFailed(true)}
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
-          </motion.div>
-        </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/20" aria-hidden="true" />
 
-        {/* شريط المعلومات العلوي (REC Style) */}
-        <div className="absolute top-[10%] left-0 right-0 px-6 flex items-center justify-between z-20">
-          <span className="font-mono text-[10px] text-white/40 tracking-[0.2em]">
-            {project.year} // 24FPS
+          {/* Cinema bars slide in on hover */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-0 bg-ink transition-[height] duration-500 group-hover:h-[7%] group-focus-within:h-[7%]"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-0 bg-ink transition-[height] duration-500 group-hover:h-[7%] group-focus-within:h-[7%]"
+          />
+
+          <span
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100"
+          >
+            <PlayGlyph className="ml-0.5 h-5 w-5" />
           </span>
-          <div className="flex items-center gap-2">
-             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-             <span className="font-mono text-[10px] text-white/60 tracking-widest">LIVE</span>
-          </div>
         </div>
-      </div>
 
-      {/* تفاصيل المشروع أسفل الكارت */}
-      <div className="mt-6 flex items-start justify-between">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-primary tracking-widest uppercase">[{project.category}]</span>
-          </div>
-          <h3 className="font-display text-2xl font-bold text-foreground tracking-tight">
-            {project.title}
+        <div className="mt-3 flex items-baseline justify-between gap-3">
+          <h3 className="font-display text-lg uppercase tracking-wide text-foreground md:text-xl">
+            {/* Stretched button: the whole tile is the click target */}
+            <button
+              type="button"
+              onClick={() => onOpen(project)}
+              aria-haspopup="dialog"
+              className="text-left after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-cyan"
+            >
+              <span className="sr-only">Play: </span>
+              {project.title}
+            </button>
           </h3>
-          <p className="font-mono text-[11px] text-muted-foreground/60">
-            Client: {project.client}
-          </p>
+          <span className="shrink-0 text-[11px] font-semibold text-cyan">{project.year}</span>
         </div>
-        <div className="h-px w-12 bg-border mt-4 group-hover:w-20 group-hover:bg-primary transition-all duration-500" />
+        <p className="mt-1 text-[11px] text-muted">{project.category}</p>
       </div>
-    </motion.div>
+    </motion.li>
   );
 };
 
 const ShowreelGallery = () => {
-  const navigate = useNavigate();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [scrollWidth, setScrollWidth] = useState(0);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      setScrollWidth(scrollRef.current.scrollWidth - scrollRef.current.offsetWidth);
-    }
-  }, [projects.length]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const headerY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const lineWidth = useTransform(scrollYProgress, [0, 0.4], ["0%", "100%"]);
+  const [active, setActive] = useState<Project | null>(null);
+  const close = useCallback(() => setActive(null), []);
 
   return (
-    <section id="work" ref={containerRef} className="py-24 md:py-40 overflow-hidden bg-background">
-      <div className="max-w-7xl mx-auto px-6 mb-16">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-end justify-between mb-8">
-            <motion.div style={{ y: headerY }}>
-              <p className="font-mono text-xs text-primary tracking-[0.4em] mb-4 uppercase">
-                &gt; Recent Productions
-              </p>
-              <h2 className="text-6xl md:text-8xl font-display font-bold tracking-tighter">
-                Show<span className="text-gradient-neon">reel</span>
-              </h2>
-            </motion.div>
-            <div className="hidden md:block text-right">
-              <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">SCROLL OR DRAG</p>
-              <div className="flex gap-1 justify-end">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="w-4 h-[1px] bg-primary/30" />
-                ))}
-              </div>
-            </div>
-          </div>
-          <motion.div className="h-px bg-primary/20" style={{ width: lineWidth }} />
-        </motion.div>
-      </div>
+    <section id="work" className="relative isolate overflow-hidden bg-work px-6 py-24 md:px-10 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-14 flex flex-wrap items-end justify-between gap-4 md:mb-20">
+          <h2 className="text-metal font-display text-[clamp(2.75rem,8vw,6.5rem)] uppercase leading-[0.9]">
+            Selected work
+          </h2>
+          <p className="text-xs text-muted">
+            {projects.length} projects. Tap one to watch.
+          </p>
+        </header>
 
-      <div ref={scrollRef} className="cursor-grab active:cursor-grabbing">
-        <motion.div
-          drag="x"
-          dragConstraints={{ right: 0, left: -scrollWidth }}
-          dragElastic={0.1}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={() => setTimeout(() => setIsDragging(false), 100)}
-          className="flex gap-10 pl-6 md:pl-[10vw] pr-[20vw]"
-        >
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-14">
           {projects.map((project, i) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={i}
-              isActive={activeIndex === i}
-              onActivate={() => setActiveIndex(i)}
-              onClick={() => {
-                if (!isDragging) navigate(`/project/${project.slug}`);
-              }}
-            />
+            <Tile key={project.id} project={project} index={i} onOpen={setActive} />
           ))}
-        </motion.div>
+        </ul>
       </div>
 
-      {/* شريط التقدم السفلي */}
-      <div className="max-w-7xl mx-auto px-6 mt-16 flex items-center justify-between">
-        <div className="flex gap-3">
-          {projects.map((p, i) => (
-            <motion.button
-              key={p.id}
-              onClick={() => setActiveIndex(i)}
-              className="h-1.5 rounded-full transition-all duration-300"
-              style={{
-                backgroundColor: activeIndex === i ? p.color : "hsl(var(--border))",
-                width: activeIndex === i ? 40 : 12,
-              }}
-            />
-          ))}
-        </div>
-        <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
-          Project {String(activeIndex + 1).padStart(2, '0')} // {projects[activeIndex].title}
-        </span>
-      </div>
+      <VideoModal project={active} onClose={close} />
     </section>
   );
 };

@@ -1,74 +1,51 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { site } from "@/data/site";
 
-const navItems = ["About", "Work", "Skills", "Process", "Contact"];
+const sections = ["start", "profile", "work", "contact"] as const;
+const items = [
+  { id: "profile", label: "Profile" },
+  { id: "work", label: "Work" },
+  { id: "contact", label: "Contact" },
+];
 
+/** Minimal pill navigation. Hidden on the intro, like the reference. */
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
-    setIsOpen(false);
-  };
+  const active = useActiveSection(sections);
+  const visible = active !== "start";
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 surface-glass"
+    <nav
+      aria-label="Primary"
+      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-center bg-gradient-to-b from-ink/90 to-transparent px-6 pb-8 pt-4 transition-[opacity,transform,visibility] duration-300 ${
+        visible ? "visible translate-y-0 opacity-100" : "invisible -translate-y-3 opacity-0"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-mono text-sm tracking-widest text-primary ">
-          Mohamed<span className="text-foreground">.Elesawy</span>
-        </button>
-
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <button
-              key={item}
-              onClick={() => scrollTo(item)}
-              className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider "
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile toggle */}
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-foreground ">
-          <div className="w-6 flex flex-col gap-1.5">
-            <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} className="block h-px bg-foreground" />
-            <motion.span animate={{ opacity: isOpen ? 0 : 1 }} className="block h-px bg-foreground" />
-            <motion.span animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }} className="block h-px bg-foreground" />
-          </div>
-        </button>
-      </div>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="md:hidden surface-glass overflow-hidden"
-          >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollTo(item)}
-                  className="text-left text-sm font-mono text-muted-foreground hover:text-primary transition-colors tracking-wider "
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      <a
+        href="#start"
+        aria-label={`${site.name}, back to top`}
+        className="absolute left-6 top-4 hidden font-display text-lg tracking-wider text-foreground md:block"
+      >
+        {site.monogram}
+      </a>
+      <ul className="flex items-center gap-1">
+        {items.map((item) => {
+          const isActive = active === item.id;
+          return (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                aria-current={isActive ? "true" : undefined}
+                className={`block rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors ${
+                  isActive ? "bg-pill text-ink" : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };
 

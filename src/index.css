@@ -1,141 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 95%;
-
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 199 100% 50%;
-    --primary-foreground: 0 0% 4%;
-
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 80%;
-
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 50%;
-
-    --accent: 199 100% 50%;
-    --accent-foreground: 0 0% 4%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 95%;
-
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
-    --ring: 199 100% 50%;
-
-    --radius: 0.5rem;
-
-    --neon: 199 100% 50%;
-    --neon-glow: 199 100% 60%;
-    --surface-elevated: 0 0% 8%;
-    --surface-glass: 0 0% 100%;
-
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-display);
+    --ink: 222 45% 3%;
+    --navy: 214 70% 10%;
+    --cyan: 195 100% 55%;
+    --foreground: 210 25% 94%;
+    --muted: 214 14% 62%;
+    --warm: 352 82% 40%;
+    --pill: 208 70% 85%;
   }
 
   html {
-    scroll-behavior: auto;
+    background: hsl(var(--ink));
+    color-scheme: dark;
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: hsl(var(--ink));
+    color: hsl(var(--foreground));
+    font-family: "Montserrat", "Cairo", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle film grain over the whole page (static, no animation) */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   ::selection {
-    background: hsl(199 100% 50% / 0.3);
-    color: hsl(0 0% 100%);
+    background: hsl(var(--cyan) / 0.3);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--cyan));
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
 }
 
 @layer utilities {
-  .text-gradient-neon {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--neon)), hsl(var(--neon-glow)), hsl(199 80% 70%));
+  /* Large condensed headings: cool metallic grey, as in the reference */
+  .text-metal {
+    background-image: linear-gradient(180deg, #dfe4ea 0%, #9aa3b0 55%, #6f7885 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .glow-neon {
-    box-shadow: 0 0 20px hsl(var(--neon) / 0.3), 0 0 60px hsl(var(--neon) / 0.1);
+  /* Section lighting: black base with deep-navy light coming from a corner */
+  .bg-intro {
+    background:
+      radial-gradient(90% 70% at 100% 15%, hsl(205 90% 24% / 0.85), transparent 62%),
+      radial-gradient(70% 60% at 0% 100%, hsl(214 80% 14% / 0.9), transparent 70%),
+      hsl(var(--ink));
+  }
+  .bg-about {
+    background:
+      radial-gradient(60% 55% at 12% 80%, hsl(205 90% 22% / 0.55), transparent 70%),
+      hsl(var(--ink));
+  }
+  .bg-work {
+    background:
+      radial-gradient(55% 45% at 0% 0%, hsl(205 90% 24% / 0.7), transparent 70%),
+      radial-gradient(55% 45% at 100% 100%, hsl(214 80% 16% / 0.7), transparent 70%),
+      hsl(var(--ink));
+  }
+  .bg-contact {
+    background:
+      radial-gradient(70% 50% at 70% 100%, hsl(205 90% 24% / 0.75), transparent 70%),
+      hsl(var(--ink));
   }
 
-  .glow-text {
-    text-shadow: 0 0 20px hsl(var(--neon) / 0.5), 0 0 40px hsl(var(--neon) / 0.2);
+  /* Blue halo behind the profile portrait */
+  .halo {
+    background: radial-gradient(circle at 50% 55%, hsl(205 100% 46% / 0.6), hsl(210 90% 25% / 0.25) 45%, transparent 68%);
   }
 
-  .border-glow {
-    border-color: hsl(var(--neon) / 0.3);
-    box-shadow: inset 0 0 20px hsl(var(--neon) / 0.05), 0 0 20px hsl(var(--neon) / 0.1);
+  .fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
   }
 
-  .surface-glass {
-    background: hsl(var(--surface-glass) / 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--surface-glass) / 0.06);
-  }
-
-  .noise-bg {
-    position: relative;
-  }
-  .noise-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .timeline-track {
-    background: linear-gradient(90deg,
-      hsl(var(--neon) / 0.1) 0%,
-      hsl(var(--neon) / 0.3) 50%,
-      hsl(var(--neon) / 0.1) 100%
-    );
-  }
-
-  .scanline {
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      hsl(0 0% 100% / 0.01) 2px,
-      hsl(0 0% 100% / 0.01) 4px
-    );
-  }
-
-  .film-grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-  }
-
-  .vignette {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9998;
-    background: radial-gradient(ellipse at center, transparent 50%, hsl(0 0% 0% / 0.4) 100%);
+  .poster-fallback {
+    background:
+      radial-gradient(80% 60% at 30% 20%, hsl(205 90% 28% / 0.8), transparent 70%),
+      linear-gradient(160deg, hsl(var(--navy)), hsl(var(--ink)));
   }
 }
