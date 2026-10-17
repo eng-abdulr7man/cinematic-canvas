@@ -1,11 +1,22 @@
+// ─────────────────────────────────────────────────────────────
+// YOUR WORK LIVES HERE.
+// To add a project: copy one object below, change its fields.
+//  • thumbnail  → put the image in /public/work/ and use "/work/my-reel.jpg"
+//  • videoUrl   → YouTube/Vimeo embed url, or "/videos/my-reel.mp4"
+//  • orientation→ "vertical" for 9:16 Reels/TikToks, "landscape" for 16:9
+// ─────────────────────────────────────────────────────────────
+
 export interface Project {
   id: number;
   slug: string;
+  /** "vertical" = 9:16 Reel / TikTok, "landscape" = 16:9 */
+  orientation: "vertical" | "landscape";
+  /** Path or URL of the grid thumbnail. Falls back to gallery[0]. */
+  thumbnail?: string;
   title: string;
   category: string;
   year: string;
   client: string;
-  color: string;
   description: string;
   role: string;
   fullDescription: string;
@@ -21,11 +32,11 @@ export const projects: Project[] = [
   {
     id: 1,
     slug: "telda-launch-campaign",
+    orientation: "vertical",
     title: "TELDA — MOVE MONEY",
     category: "Commercial / Social",
     year: "2025",
     client: "Telda Egypt",
-    color: "#00b4ff",
     description: "Fast-paced social media ads for Egypt's leading digital bank",
     role: "Video Editor & Motion Graphics",
     fullDescription:
@@ -40,17 +51,17 @@ export const projects: Project[] = [
       "https://images.pexels.com/photos/8937438/pexels-photo-8937438.jpeg?auto=compress&cs=tinysrgb&w=1200",
       "https://images.unsplash.com/photo-1613243555988-441166d4d6fd?w=1200&q=80",
     ],
-    // تم التعديل هنا ليكون Embed URL
+    // Replace with your own link: a YouTube/Vimeo EMBED url, or a direct .mp4 (e.g. "/videos/reel-01.mp4").
     videoUrl: "https://www.youtube.com/embed/LGj_fL_xnrA",
   },
   {
     id: 2,
     slug: "el-gouna-festival-recap",
+    orientation: "landscape",
     title: "GFF 24 — HIGHLIGHTS",
     category: "Event Recap",
     year: "2024",
     client: "El Gouna Film Festival",
-    color: "#00d4aa",
     description: "Daily recap videos and red carpet highlights for GFF's 7th edition",
     role: "Lead Content Editor",
     fullDescription:
@@ -65,17 +76,17 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
       "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80",
     ],
-    // تم التعديل هنا ليكون Embed URL
+    // Replace with your own link: a YouTube/Vimeo EMBED url, or a direct .mp4 (e.g. "/videos/reel-01.mp4").
     videoUrl: "https://www.youtube.com/embed/LGj_fL_xnrA",
   },
   {
     id: 3,
     slug: "swvl-business-solutions",
+    orientation: "vertical",
     title: "SWVL FOR BUSINESS",
     category: "Corporate Explainer",
     year: "2024",
     client: "Swvl",
-    color: "#ff6b35",
     description: "B2B explainer video showcasing Swvl's corporate transportation logistics",
     role: "Video Editor",
     fullDescription:
@@ -90,17 +101,17 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&q=80",
       "https://images.unsplash.com/photo-1570126618953-d437176e8c79?w=1200&q=80",
     ],
-    // تم التعديل هنا ليكون Embed URL
+    // Replace with your own link: a YouTube/Vimeo EMBED url, or a direct .mp4 (e.g. "/videos/reel-01.mp4").
     videoUrl: "https://www.youtube.com/embed/LGj_fL_xnrA",
   },
   {
     id: 4,
     slug: "mountain-view-ramadan",
+    orientation: "landscape",
     title: "MOUNTAIN VIEW — EID GREETINGS",
     category: "Social Media",
     year: "2024",
     client: "Mountain View Egypt",
-    color: "#a855f7",
     description: "Heartwarming social media spots for Ramadan and Eid seasons",
     role: "Content Editor",
     fullDescription:
@@ -115,7 +126,7 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1200&q=80",
       "https://images.unsplash.com/photo-1542401886-65d6c61db217?w=1200&q=80",
     ],
-    // تم التعديل هنا ليكون Embed URL
+    // Replace with your own link: a YouTube/Vimeo EMBED url, or a direct .mp4 (e.g. "/videos/reel-01.mp4").
     videoUrl: "https://www.youtube.com/embed/LGj_fL_xnrA",
   },
 ];

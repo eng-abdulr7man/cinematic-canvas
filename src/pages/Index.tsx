@@ -1,50 +1,28 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
-import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
+import ScrollHud from "@/components/ScrollHud";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
-import StatsAndClients from "@/components/StatsAndClients";
 import ShowreelGallery from "@/components/ShowreelGallery";
-import SkillsTimeline from "@/components/SkillsTimeline";
-import WorkProcess from "@/components/WorkProcess";
-import Testimonials from "@/components/Testimonials";
-import AwardsAndEquipment from "@/components/AwardsAndEquipment";
-import Footer from "@/components/Footer";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
+  // Arriving from another route (e.g. "/#work"): jump to that section once.
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => lenis.destroy();
+    const id = window.location.hash.slice(1);
+    if (id) document.getElementById(id)?.scrollIntoView();
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* Cinematic overlays */}
-      <div className="film-grain" />
-      <div className="vignette" />
-
-      <CustomCursor />
+    <div className="relative">
+      <ScrollHud />
       <Navbar />
-      <Hero />
-      <AboutSection />
-      <StatsAndClients />
-      <ShowreelGallery />
-      <SkillsTimeline />
-      <WorkProcess />
-      <Testimonials />
-      <AwardsAndEquipment />
-      <Footer />
+      <main>
+        <Hero />
+        <AboutSection />
+        <ShowreelGallery />
+        <ContactSection />
+      </main>
     </div>
   );
 };

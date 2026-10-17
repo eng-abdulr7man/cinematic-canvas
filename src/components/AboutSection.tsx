@@ -1,123 +1,88 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import editorPortrait from "@/assets/editor-portrait.jpg";
+import { motion } from "framer-motion";
+import portrait from "@/assets/editor-portrait.webp";
+import { capabilities, contentTypes, site, software } from "@/data/site";
 
-const details = [
-  { label: "LOCATION", value: "Mansoura, Egypt" },
-  { label: "EXPERIENCE", value: "1+ Years" },
-  { label: "SPECIALTY", value: "Cinematic Editing" },
-  { label: "AVAILABLE", value: "Freelance & Remote" },
-];
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const AboutSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-
-  return (
-    <section id="about" ref={ref} className="py-24 md:py-32 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <motion.div style={{ y }} className="relative">
-              <div className="relative overflow-hidden border border-border">
-                <img
-                  src={editorPortrait}
-                  alt="Ahmed Karim — Professional Video Editor"
-                  width={800}
-                  height={1000}
-                  loading="lazy"
-                  className="w-full h-[500px] md:h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                {/* Neon border glow on hover */}
-                <div className="absolute inset-0 border border-primary/0 hover:border-primary/20 transition-colors duration-500 glow-neon opacity-0 hover:opacity-100" />
-              </div>
-
-              {/* Floating label */}
-              <motion.div
-                className="absolute -bottom-4 -right-4 md:-right-8 bg-card border border-border px-6 py-4"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-              >
-                <span className="font-mono text-[10px] text-primary tracking-[0.3em] block">SINCE</span>
-                <span className="font-display text-3xl font-bold text-foreground">2024</span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="font-mono text-xs text-primary tracking-[0.3em] mb-2">ABOUT ME</p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-2">
-             Mohamed Elesawy
-            </h2>
-            <p className="font-mono text-sm text-primary/80 mb-6 tracking-wider">
-              Junior Video Editor & Colorist
-            </p>
-
-            <div className="space-y-4 text-muted-foreground text-sm leading-relaxed mb-10">
-             <p>
-  I'm a passionate storyteller who speaks through cuts, transitions, and color. With 
-  one year of professional experience in the film and advertising industry, I've already 
-  started crafting compelling visual narratives for brands and content creators across 
-  the Middle East.
-</p>
-<p>
-  My approach combines technical precision with artistic intuition — every frame is an
-  opportunity to evoke emotion. I bring a fresh, cinematic eye to every project, 
-  focusing on delivering high-quality commercial spots and creative content.
-</p>
-<p>
-  I believe great editing is invisible. The audience should feel the story, not see the cuts.
-  That's the standard I hold myself to on every timeline as I continue to push the 
-  boundaries of visual storytelling.
-</p>
-            </div>
-
-            {/* Details grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {details.map((detail, i) => (
-                <motion.div
-                  key={detail.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                  className="border-l-2 border-primary/20 pl-4 py-2"
-                >
-                  <span className="font-mono text-[10px] text-muted-foreground tracking-[0.2em] block mb-1">
-                    {detail.label}
-                  </span>
-                  <span className="font-display text-sm font-semibold text-foreground">
-                    {detail.value}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+const AboutSection = () => (
+  <section id="profile" className="relative isolate overflow-hidden bg-about px-6 py-24 md:px-10 md:py-32">
+    <div className="mx-auto grid max-w-6xl items-center gap-14 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16">
+      {/* Portrait with blue halo */}
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.9, ease }}
+        className="mx-auto w-full max-w-sm md:max-w-none"
+      >
+        <p className="text-center text-[11px] font-medium tracking-[0.35em] text-foreground/60">HELLO, I AM</p>
+        <p className="mt-1 text-center font-display text-3xl uppercase tracking-wide text-foreground">{site.name}</p>
+        <div className="relative mt-6 aspect-[4/5]">
+          <div className="halo absolute inset-[-6%]" aria-hidden="true" />
+          <img
+            src={portrait}
+            alt={`${site.name} at his editing desk`}
+            width={1100}
+            height={1100}
+            loading="lazy"
+            decoding="async"
+            className="fade-bottom relative h-full w-full object-cover object-[80%_40%]"
+          />
         </div>
+      </motion.div>
+
+      {/* Copy */}
+      <div>
+        <h2 className="text-metal font-display text-4xl uppercase leading-none md:text-5xl">About me</h2>
+        <div className="mt-5 max-w-xl space-y-3 text-sm leading-relaxed text-foreground/75">
+          {site.about.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+
+        <h3 className="text-metal mt-10 font-display text-2xl uppercase">Software skills</h3>
+        <ul className="mt-4 flex flex-wrap gap-4">
+          {software.map((tool) => (
+            <li key={tool.name} className="flex w-16 flex-col items-center gap-2 text-center">
+              <span
+                title={tool.name}
+                className="flex h-12 w-12 items-center justify-center rounded-xl text-lg font-bold ring-1 ring-white/10"
+                style={{ background: tool.bg, color: tool.fg }}
+                aria-hidden="true"
+              >
+                {tool.mark}
+              </span>
+              <span className="text-[10px] leading-tight text-muted">{tool.name}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-xs text-muted">Also: {capabilities.join(" and ").toLowerCase()}.</p>
+
+        <dl className="mt-10 grid gap-8 sm:grid-cols-2">
+          <div>
+            <dt className="text-metal font-display text-xl uppercase">Experience</dt>
+            <dd className="mt-2 text-sm text-foreground/75">{site.details.experience}</dd>
+            <dd className="mt-1 text-sm text-foreground/75">{site.details.specialty}</dd>
+            <dd className="mt-1 text-sm text-foreground/75">{site.details.availability}</dd>
+            <dd className="mt-1 text-sm text-foreground/75">Based in {site.details.location}</dd>
+          </div>
+          <div>
+            <dt className="text-metal font-display text-xl uppercase">Content I edit</dt>
+            <dd className="mt-2">
+              <ul className="space-y-1 text-sm text-foreground/75">
+                {contentTypes.map((type) => (
+                  <li key={type} className="flex items-center gap-2">
+                    <span className="h-1 w-1 rounded-full bg-cyan" aria-hidden="true" />
+                    {type}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        </dl>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default AboutSection;
